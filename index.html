@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>LaTeX Linter</title>
+    <meta lang="ja" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="flex flex-col space-y-4">
+      <textarea
+        id="code"
+        placeholder="Your LaTeX Code"
+        class="p-4 rounded-md border-gray-300 border h-40"
+      >
+  \begin{document}
+  サンプルテキストはサンプルは素晴らしい。。
+  \end{document}</textarea
+      >
+      <div class="flex flex-col justify-center items-center">
+        <button
+          id="submit"
+          class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md w-1/2"
+        >
+          Submit
+        </button>
+      </div>
+      <textarea
+        id="response"
+        placeholder="Linter Response"
+        readonly
+        class="p-4 rounded-md border-gray-300 border h-40"
+      ></textarea>
+    </div>
+    <script>
+      const code = document.getElementById("code");
+      const submit = document.getElementById("submit");
+      const response = document.getElementById("response");
+      submit.addEventListener("click", async () => {
+        const codeValue = code.value;
+        const res = await fetch("http://192.168.100.4:1234", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ code: codeValue }),
+        });
+        const json = await res.json();
+        response.value = json.value;
+      });
+    </script>
+  </body>
+</html>

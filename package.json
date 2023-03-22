@@ -1,0 +1,26 @@
+{
+  "name": "latexlinter",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "author": "xryuseix",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node ./dist/index.js"
+  },
+  "dependencies": {
+    "@types/node": "^17.0.23",
+    "child_process": "^1.0.2",
+    "fastify": "^4.13.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.3",
+    "textlint": "^12.4.0",
+    "textlint-filter-rule-comments": "^1.2.2",
+    "textlint-plugin-latex2e": "^1.2.0",
+    "textlint-rule-preset-ja-engineering-paper": "^1.0.4",
+    "textlint-rule-preset-ja-spacing": "^2.2.0",
+    "textlint-rule-preset-ja-technical-writing": "^7.0.0",
+    "textlint-rule-preset-japanese": "^7.0.0"
+  }
+}
