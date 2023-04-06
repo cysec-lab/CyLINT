@@ -40,10 +40,9 @@
       const code = document.getElementById("code");
       const submit = document.getElementById("submit");
       const response = document.getElementById("response");
+      const tableBody = document.getElementById("table-body");
 
       function lint2Table(data) {
-        const tableBody = document.getElementById("table-body");
-
         for (let i = 0; i < data.length; i++) {
           const row = document.createElement("tr");
 
@@ -82,8 +81,11 @@
 
       submit.addEventListener("click", async () => {
         setLoading();
+        while (tableBody.firstChild){
+          tableBody.removeChild(tableBody.firstChild);
+        }
         const codeValue = code.value;
-        const res = await fetch("http://192.168.100.44:8080", {
+        const res = await fetch("http://192.168.100.33:8080", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
