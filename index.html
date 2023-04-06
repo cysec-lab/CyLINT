@@ -37,6 +37,10 @@
       </table>
     </div>
     <script>
+      const code = document.getElementById("code");
+      const submit = document.getElementById("submit");
+      const response = document.getElementById("response");
+
       function lint2Table(data) {
         const tableBody = document.getElementById("table-body");
 
@@ -66,13 +70,20 @@
           tableBody.appendChild(row);
         }
       }
+      function setLoading() {
+        submit.disabled = true;
+        submit.textContent = 'Loading...(about 1min)';
+      }
+    
+      function unsetLoading() {
+        submit.disabled = false;
+        submit.textContent = "Submit";
+      }
 
-      const code = document.getElementById("code");
-      const submit = document.getElementById("submit");
-      const response = document.getElementById("response");
       submit.addEventListener("click", async () => {
+        setLoading();
         const codeValue = code.value;
-        const res = await fetch("http://192.168.100.44:1234", {
+        const res = await fetch("http://192.168.100.44:8080", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -80,7 +91,12 @@
           body: JSON.stringify({ code: codeValue }),
         });
         const json = await res.json();
-        lint2Table(json);
+        if(json.length === 0) {
+          alert("No lint error found!");
+        } else {
+          lint2Table(json);
+        }
+        unsetLoading();
       });
     </script>
   </body>

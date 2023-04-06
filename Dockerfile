@@ -1,10 +1,10 @@
 FROM node:18-buster-slim
-COPY src /
-COPY package.json /
-RUN cd src && yarn && yarn build
+RUN mkdir /app
 WORKDIR /app
+COPY index.ts index.html package.json tsconfig.json .textlintrc ruleId2Url.ts yarn.lock .
+RUN yarn
+RUN yarn build
+RUN mkdir uploads
 
-RUN rm -rf src
-
-EXPOSE 8888
+EXPOSE 8080
 CMD ["yarn", "start"]
