@@ -11,7 +11,7 @@
       <textarea
         id="code"
         placeholder="Your LaTeX Code"
-        class="p-4 rounded-md border-gray-300 border h-40"
+        class="p-4 rounded-md border-gray-300 border h-40 m-4"
       >
   \begin{document}
   サンプルテキストはサンプルは素晴らしい。。
@@ -25,20 +25,54 @@
           Submit
         </button>
       </div>
-      <textarea
-        id="response"
-        placeholder="Linter Response"
-        readonly
-        class="p-4 rounded-md border-gray-300 border h-40"
-      ></textarea>
+      <table class="table-auto border border-collapse m-4">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 bg-blue-200">line</th>
+            <th class="px-4 py-2 bg-blue-200">message</th>
+            <th class="px-4 py-2 bg-blue-200">url</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
     </div>
     <script>
+      function lint2Table(data) {
+        const tableBody = document.getElementById("table-body");
+
+        for (let i = 0; i < data.length; i++) {
+          const row = document.createElement("tr");
+
+          const posCell = document.createElement("td");
+          const posText = `${data[i].loc.start.line}-${data[i].loc.end.line}`;
+          posCell.textContent = posText;
+          posCell.classList.add("border", "px-4", "py-2");
+
+          const messageCell = document.createElement("td");
+          messageCell.textContent = data[i].message;
+          messageCell.classList.add("border", "px-4", "py-2");
+
+          const urlCell = document.createElement("td");
+          const url = data[i].url
+            ? `<a href="${data[i].url}" target="_blank" rel="noopener noreferrer">${data[i].url}</a>`
+            : "";
+          urlCell.innerHTML = url;
+          urlCell.classList.add("border", "px-4", "py-2");
+
+          row.appendChild(posCell);
+          row.appendChild(messageCell);
+          row.appendChild(urlCell);
+
+          tableBody.appendChild(row);
+        }
+      }
+
       const code = document.getElementById("code");
       const submit = document.getElementById("submit");
       const response = document.getElementById("response");
       submit.addEventListener("click", async () => {
         const codeValue = code.value;
-        const res = await fetch("http://192.168.100.4:1234", {
+        const res = await fetch("http://192.168.100.44:1234", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -46,7 +80,7 @@
           body: JSON.stringify({ code: codeValue }),
         });
         const json = await res.json();
-        response.value = json.value;
+        lint2Table(json);
       });
     </script>
   </body>
