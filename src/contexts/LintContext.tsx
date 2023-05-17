@@ -1,25 +1,26 @@
-import { ReactNode, createContext, useContext } from "react";
-import { LintResult } from "@/types/lint";
+import { ReactNode, createContext, useState } from "react";
+import { LintResults } from "@/types/lint";
 
-type LintContextValue = {
+type LintContext = {
   loading: boolean;
-  result: LintResult;
+  setLoading: (loading: boolean) => void;
+  result: LintResults;
+  setResult: (result: LintResults) => void;
 };
 
-export const LintContext = createContext<LintContextValue>({
+const defaultContext: LintContext = {
   loading: false,
-  result: []
-});
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setLoading: (loading) => {},
+  result: [] as LintResults,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setResult: (result) => {},
+};
+
+export const LintContext = createContext<LintContext>(defaultContext);
 
 export const LintProvider = ({ children }: { children: ReactNode }) => {
-  return (
-    <LintContext.Provider value={{ loading: false, result: [] }}>
-      {children}
-    </LintContext.Provider>
-  );
-};
-
-export const useUsers = () => {
-  const { loading, result } = useContext(LintContext);
-  return { loading, result };
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState([] as LintResults);
+  return <LintContext.Provider value={{loading, setLoading, result, setResult}}>{children}</LintContext.Provider>;
 };
