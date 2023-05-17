@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { lintCode } from "../lib/fetch";
+import { LintContext } from "@/contexts/LintContext";
+
 export const LaTeXForm = () => {
-  const initialCode = `\\begin{document}\nサンプルテキストはサンプルは素晴らしい。。\n\\end{document}`
+  const { loading, setLoading } = useContext(LintContext);
+  const {result, setResult} = useContext(LintContext);
+  const initialCode = `\\begin{document}\nサンプルテキストはサンプルは素晴らしい。。\n\\end{document}`;
   const [code, setCode] = useState(initialCode);
-  const handleClick = () => lintCode(code);
+
+  const handleClick = async () => {
+    setLoading(true);
+    const res = await lintCode(code);
+    setLoading(false);
+    setResult(res);
+  };
 
   return (
     <>
@@ -14,14 +24,14 @@ export const LaTeXForm = () => {
         onKeyUp={(event: React.KeyboardEvent<HTMLTextAreaElement>) =>
           setCode(event.currentTarget.value)
         }
-      >
-        {initialCode}
-      </textarea>
+        defaultValue={initialCode}
+      ></textarea>
       <div className="flex flex-col justify-center items-center">
         <button
           id="submit"
           className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md w-1/2"
           onClick={handleClick}
+          disabled={loading}
         >
           Submit
         </button>
