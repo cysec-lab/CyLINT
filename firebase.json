@@ -12,8 +12,13 @@
     ],
     "rewrites": [
       {
-        "source": "**",
+        "source": "/",
         "destination": "/index.html"
+      },
+      {
+        "source": "/api/**",
+        "function": "lint",
+        "region": "asia-northeast1"
       }
     ]
   },

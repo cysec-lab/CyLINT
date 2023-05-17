@@ -13,7 +13,7 @@ service cloud.firestore {
       allow write: if isOwn(uid) && request.auth.token.email.matches('.*@cysec.cs.ritsumei.ac.jp');
     }
 
-    match /settings/{uId} {
+    match /settings/{uid} {
       allow read, create: if isLoggedIn() && isOwn(uid);
       allow update, delete: if isLoggedIn() && isOwn(uid);
     }
