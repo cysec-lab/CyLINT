@@ -11,7 +11,7 @@ export const LaTeXForm = () => {
   const handleClick = async () => {
     setLoading(true);
     const res = await lintCode(code);
-    // setLoading(false);
+    setLoading(false);
     setResult(res);
   };
 
