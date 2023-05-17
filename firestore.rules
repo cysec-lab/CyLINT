@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isLoggedIn() {
+      return request.auth != null;
+    }
+    function isOwn(uid) {
+      return isLoggedIn() && request.auth.uid == uid;
+    }
+
+    match /users/{uid} {
+      allow read: if isLoggedIn();
+      allow write: if isOwn(uid) && request.auth.token.email.matches('.*@cysec.cs.ritsumei.ac.jp');
+    }
+
+    match /settings/{uId} {
+      allow read, create: if isLoggedIn() && isOwn(uid);
+      allow update, delete: if isLoggedIn() && isOwn(uid);
+    }
+  }
+}
