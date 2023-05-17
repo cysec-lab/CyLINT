@@ -8,12 +8,12 @@ import "@/lib/firebase";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    {/* <AuthProvider>
-      <UsersProvider> */}
+    <AuthProvider>
+      <UsersProvider>
         <LintProvider>
           <App />
         </LintProvider>
-      {/* </UsersProvider>
-    </AuthProvider> */}
+      </UsersProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
