@@ -9,7 +9,7 @@ type ResT = (TextlintMessage & { url: string | undefined })[];
 export const lint = functions.https.onRequest(
   {
     region: "asia-northeast1",
-    memory: "1GiB",
+    memory: "2GiB",
     timeoutSeconds: 15,
     maxInstances: 10,
   },
