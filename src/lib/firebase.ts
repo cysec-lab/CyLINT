@@ -28,11 +28,14 @@ const firebaseConfig = {
   storageBucket: (import.meta as any).env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: (import.meta as any).env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: (import.meta as any).env.VITE_FIREBASE_APP_ID,
+  debug: (import.meta as any).env.VITE_EMULATORS === "true",
 };
+
+export const isDebug = firebaseConfig.debug;
 
 const app = initializeApp(firebaseConfig);
 
-if ((import.meta as any).env.VITE_EMULATORS === "true") {
+if (isDebug) {
   console.info("USE EMULATORS...");
   connectAuthEmulator(getAuth(), "http://localhost:9099");
   const firestore = initializeFirestore(app, {

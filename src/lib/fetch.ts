@@ -1,7 +1,12 @@
 import { LintResults } from "@/types/lint";
+import { isDebug } from "./firebase";
 
 export const lintCode = async (code: string) => {
-    const res = await fetch(`https://${window.location.hostname}/api/lint`, {
+  const uri = isDebug
+    ? `http://127.0.0.1:5001/cyseclint/asia-northeast1/lint`
+    : `https://${window.location.hostname}/api/lint`;
+
+  const res = await fetch(uri, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
