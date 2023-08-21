@@ -15,10 +15,17 @@ export const lint = functions.https.onRequest(
   },
   async (request: functions.https.Request, response) => {
     const { code } = request.body;
+    const lang = request.body?.lang ?? "ja";
 
     if (code === undefined) {
       response.type("application/json").status(400);
       response.send(JSON.stringify({ error: "code is undefined" }));
+      return;
+    }
+
+    if (lang !== "en" && lang !== "ja") {
+      response.type("application/json").status(400);
+      response.send(JSON.stringify({ error: "lang is allowed 'en' or 'ja'" }));
       return;
     }
 
@@ -30,7 +37,8 @@ export const lint = functions.https.onRequest(
     fs.writeFileSync(`uploads/${fileName}.tex`, code);
 
     console.log(`textlint start!: ${fileName}`);
-    const descriptor = await loadTextlintrc({ configFilePath: ".textlintrc" });
+    const configFilePath = lang === "ja" ? ".textlintrc" : ".textlintrc.en";
+    const descriptor = await loadTextlintrc({ configFilePath });
     const linter = createLinter({ descriptor });
     const lintRes = await linter.lintFiles([`uploads/${fileName}.tex`]);
     console.log(`textlint finish!: ${fileName}`);

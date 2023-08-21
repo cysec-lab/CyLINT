@@ -4,13 +4,14 @@ import { LintContext } from "@/contexts/LintContext";
 
 export const LaTeXForm = () => {
   const { loading, setLoading } = useContext(LintContext);
-  const { result, setResult } = useContext(LintContext);
+  const { lang } = useContext(LintContext);
+  const { setResult } = useContext(LintContext);
   const initialCode = `\\begin{document}\nサンプルテキストはサンプルは素晴らしい。。\n\\end{document}`;
   const [code, setCode] = useState(initialCode);
 
   const handleClick = async () => {
     setLoading(true);
-    const res = await lintCode(code);
+    const res = await lintCode(code, lang);
     setResult(res);
     setLoading(false);
   };

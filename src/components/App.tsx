@@ -1,16 +1,18 @@
+import { useContext } from "react";
 import { LaTeXForm } from "./LaTeXForm";
 import { LintResults } from "./LintResults";
 import { LintContext } from "@/contexts/LintContext";
 import { LoadingScreenClear } from "./LoadingScreen";
-import { useContext } from "react";
+import { Header } from "./Header";
 
 export const App = () => {
-  const { loading } = useContext(LintContext)
+  const { loading } = useContext(LintContext);
   return (
     <div>
-      <div className="flex flex-col space-y-4">
+      <Header />
+      {loading && LoadingScreenClear()}
+      <div className="flex flex-col space-y-4 mt-8">
         <LaTeXForm />
-        {loading && LoadingScreenClear()}
         <LintResults />
       </div>
     </div>

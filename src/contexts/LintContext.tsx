@@ -4,6 +4,8 @@ import { LintResults } from "@/types/lint";
 type LintContext = {
   loading: boolean;
   setLoading: (loading: boolean) => void;
+  lang: "en" | "ja";
+  setLang: (lang: "en" | "ja") => void;
   result: LintResults;
   setResult: (result: LintResults) => void;
 };
@@ -12,6 +14,9 @@ const defaultContext: LintContext = {
   loading: false,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setLoading: (loading) => {},
+  lang: "ja",
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setLang: (lang) => {},
   result: [] as LintResults,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setResult: (result) => {},
@@ -22,5 +27,12 @@ export const LintContext = createContext<LintContext>(defaultContext);
 export const LintProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState([] as LintResults);
-  return <LintContext.Provider value={{loading, setLoading, result, setResult}}>{children}</LintContext.Provider>;
+  const [lang, setLang] = useState<"en" | "ja">("ja");
+  return (
+    <LintContext.Provider
+      value={{ loading, setLoading, lang, setLang, result, setResult }}
+    >
+      {children}
+    </LintContext.Provider>
+  );
 };

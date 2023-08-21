@@ -1,7 +1,7 @@
 import { LintResults } from "@/types/lint";
 import { isDebug } from "./firebase";
 
-export const lintCode = async (code: string) => {
+export const lintCode = async (code: string, lang: "en" | "ja") => {
   const uri = isDebug
     ? `http://127.0.0.1:5001/cyseclint/asia-northeast1/lint`
     : `https://${window.location.hostname}/api/lint`;
@@ -11,7 +11,7 @@ export const lintCode = async (code: string) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ code: code }),
+    body: JSON.stringify({ code, lang }),
   });
   const json = await res.json();
   if (json.length === 0) {

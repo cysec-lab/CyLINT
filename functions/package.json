@@ -2,7 +2,7 @@
   "name": "functions",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
-    "build": "tsc && cp .textlintrc lib/",
+    "build": "tsc && cp .textlintrc* lib/",
     "build:watch": "tsc --watch",
     "test": "vitest run",
     "serve": "yarn build && firebase emulators:start --only functions",
@@ -26,6 +26,8 @@
     "textlint-rule-preset-japanese": "^7.0.0"
   },
   "devDependencies": {
+    "@textlint-rule/textlint-rule-preset-google": "^0.1.2",
+    "textlint-rule-terminology": "^3.0.5",
     "typescript": "^4.5.4"
   },
   "private": true

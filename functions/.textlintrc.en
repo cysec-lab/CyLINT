@@ -1,0 +1,20 @@
+{
+  "plugins": ["latex2e"],
+  "rules": {
+    "english-paper": true, // https://github.com/satob/textlint-rule-english-paper
+    "terminology": { // https://github.com/sapegin/textlint-rule-terminology
+      "defaultTerms": true,
+      "skip": ["Blockquote"],
+    },
+    "@textlint-rule/preset-google": true
+  },
+
+  // https://github.com/textlint/textlint-filter-rule-comments
+  // コメントを無視する
+  "filters": {
+    "comments": {
+      "enablingComment": "textlint-enable",
+      "disablingComment": "textlint-disable"
+    }
+  }
+}
