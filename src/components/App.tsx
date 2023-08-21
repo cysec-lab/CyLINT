@@ -11,7 +11,7 @@ export const App = () => {
     <div>
       <Header />
       {loading && LoadingScreenClear()}
-      <div className="flex flex-col space-y-4 mt-8">
+      <div className="flex flex-col space-y-4 mt-16">
         <LaTeXForm />
         <LintResults />
       </div>
