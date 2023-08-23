@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useRef } from "react";
+import { useState, useContext, useRef } from "react";
 import { lintCode } from "../lib/fetch";
 import { LintContext } from "@/contexts/LintContext";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";

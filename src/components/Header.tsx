@@ -4,8 +4,8 @@ import { LintContext } from "@/contexts/LintContext";
 export const Header = () => {
   const { lang, setLang } = useContext(LintContext);
   return (
-    <div style={{ position: "fixed", top: 0, right: 0 }}>
-      <label className="themeSwitcherThree relative inline-flex cursor-pointer select-none items-center">
+    <div style={{ position: "fixed", top: 0, right: 0, zIndex: 1 }}>
+      <label className="themeSwitcherThree relative inline-flex cursor-pointer select-none items-center bg-white rounded p-1">
         <input
           type="checkbox"
           checked={lang === "en"}

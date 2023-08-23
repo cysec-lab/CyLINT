@@ -8,7 +8,7 @@ export const LoadingScreen = () => (
 );
 
 export const LoadingScreenClear = () => (
-  <div className="flex items-center justify-center h-screen bg-gray-100 absolute top-0 left-0 right-0 bottom-0">
+  <div className="flex items-center justify-center h-screen bg-gray-100 fixed top-0 left-0 right-0 bottom-0 z-50 w-screen h-screen">
     <div className={`${styles.spinner} mr-4`} />
     <div className="text-lg font-bold">{`Loading...`}</div>
   </div>
