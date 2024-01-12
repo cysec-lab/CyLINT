@@ -65,6 +65,9 @@ const ruleId2Plugin: ruleId2PluginT = {
   "ja-engineering-paper":
     "https://github.com/kn1cht/textlint-rule-preset-ja-engineering-paper",
   japanese: "https://github.com/textlint-ja/textlint-rule-preset-japanese",
+  "english-paper": "https://github.com/satob/textlint-rule-english-paper",
+  "preset-google": "https://github.com/textlint-rule/textlint-rule-preset-google",
+  "terminology": "https://github.com/sapegin/textlint-rule-terminology"
 };
 
 export const getUrl = (ruleId: string) => {
