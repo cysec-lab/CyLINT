@@ -52,14 +52,21 @@ export const LaTeXForm = () => {
   const { loading, setLoading } = useContext(LintContext);
   const { lang } = useContext(LintContext);
   const { setResult } = useContext(LintContext);
-  const initialCode =
-    lang === "en"
-      ? `\\begin{document}\n  sample text is sample is awesome..\n\\end{document}`
-      : `\\begin{document}\n  サンプルテキストはサンプルは素晴らしい。。\n\\end{document}`;
-  const [code, setCode] = useState(initialCode);
+  const initialJaCode = `\\begin{document}\n  サンプルテキストはサンプルは素晴らしい。。\n\\end{document}`;
+  const initialEnCode = `\\begin{document}\n  sample text is sample is awesome..\n\\end{document}`;
+  const [code, setCode] = useState(initialJaCode);
 
   useEffect(() => {
-    setCode(initialCode);
+    if (lang === "ja") {
+      if (code === initialEnCode) {
+        setCode(initialJaCode);
+      }
+    }
+    if (lang === "en") {
+      if (code === initialJaCode) {
+        setCode(initialEnCode);
+      }
+    }
   }, [lang]);
 
   const handleClick = async () => {
