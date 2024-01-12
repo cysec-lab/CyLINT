@@ -48,7 +48,7 @@ export const lint = functions.https.onRequest(
       response.send(JSON.stringify([]));
     } else {
       const res: ResT = lintRes[0].messages.map((message: TextlintMessage) => {
-        const url = getUrl(message.ruleId).url;
+        const url = getUrl(message.ruleId);
         return { ...message, url };
       });
 
