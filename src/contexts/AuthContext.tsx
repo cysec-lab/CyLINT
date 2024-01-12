@@ -37,3 +37,17 @@ export const useAuth = () => {
 
   return { user, signInWithGoogle, signOut };
 };
+
+export const useLogout = () => {
+  const logout = () => {
+    signOut()
+      .then(() => {
+        console.log("Sign-out successful.");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  return { logout };
+};

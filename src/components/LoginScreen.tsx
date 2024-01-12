@@ -9,7 +9,7 @@ export const LoginScreen = () => {
         className="px-8 py-4 text-lg font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 transform transition-all duration-200 ease-in-out"
         onClick={signInWithGoogle}
       >
-        Google Login (only Cysec-lab Students)
+        Google Login (only authorized users)
       </button>
     </div>
   );
