@@ -22,6 +22,11 @@
       }
     ]
   },
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs20",
+    "region": "asia-northeast1"
+  },
   "emulators": {
     "auth": {
       "port": 9099

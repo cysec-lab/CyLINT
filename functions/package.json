@@ -7,16 +7,12 @@
     "test": "vitest run",
     "serve": "yarn build && firebase emulators:start --only functions",
     "shell": "yarn build && firebase functions:shell",
-    "start": "yarn shell",
-    "deploy": "yarn build && firebase deploy --only functions"
-  },
-  "engines": {
-    "node": "16"
+    "start": "yarn shell"
   },
   "main": "lib/index.js",
   "dependencies": {
     "firebase-admin": "^10.0.2",
-    "firebase-functions": "^4.4.0",
+    "firebase-functions": "^4.6.0",
     "textlint": "^13.3.2",
     "textlint-filter-rule-comments": "^1.2.2",
     "textlint-plugin-latex2e": "^1.2.1",

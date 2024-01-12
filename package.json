@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc && vite build",
     "deploy": "VITE_EMULATORS=false yarn build && firebase deploy --except functions",
+    "deploy:functions": "firebase deploy --only functions",
     "dev": "vite",
     "emulators:start": "firebase emulators:start",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
