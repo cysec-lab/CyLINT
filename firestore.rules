@@ -7,10 +7,20 @@ service cloud.firestore {
     function isOwn(uid) {
       return isLoggedIn() && request.auth.uid == uid;
     }
+    function isValidDomain(email) {
+      let domain = email.split('@')[1];
+      let domains = get(/databases/$(database)/documents/valid_domains/$(domain));
+      return domains.size() > 0;
+    }
+    function isValidEmail(email) {
+      let emails = get(/databases/$(database)/documents/valid_emails/$(email));
+      return emails.size() > 0;
+    }
 
     match /users/{uid} {
       allow read: if isLoggedIn();
-      allow write: if isOwn(uid) && request.auth.token.email.matches('.*@cysec.cs.ritsumei.ac.jp');
+      allow write: if isOwn(uid) && isValidDomain(request.auth.token.email);
+      allow write: if isOwn(uid) && isValidEmail(request.auth.token.email);
     }
 
     match /settings/{uid} {
