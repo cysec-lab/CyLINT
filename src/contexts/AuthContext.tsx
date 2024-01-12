@@ -3,7 +3,7 @@ import { User, signInGoogleWithPopup, signOut } from "@/lib/firebase";
 import { getUser, addUser } from "@/lib/user";
 import { useAuthState } from "@/hooks/useAuthState";
 import { LoginScreen } from "@/components/LoginScreen";
-import { LoadingScreen } from "@/components/LoadingScreen";
+import { AuthLoadingScreen } from "@/components/LoadingScreen";
 
 type AuthContextValue = {
   user: User | null;
@@ -14,7 +14,7 @@ export const AuthContext = createContext<AuthContextValue>({ user: null });
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, loading] = useAuthState();
 
-  if (loading) return <LoadingScreen />;
+  if (loading) return <AuthLoadingScreen />;
   if (!user) return <LoginScreen />;
 
   return (

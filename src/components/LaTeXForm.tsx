@@ -1,4 +1,4 @@
-import { useState, useContext, useRef } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { lintCode } from "../lib/fetch";
 import { LintContext } from "@/contexts/LintContext";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -52,11 +52,18 @@ export const LaTeXForm = () => {
   const { loading, setLoading } = useContext(LintContext);
   const { lang } = useContext(LintContext);
   const { setResult } = useContext(LintContext);
-  const initialCode = `\\begin{document}\n  サンプルテキストはサンプルは素晴らしい。。\n\\end{document}`;
+  const initialCode =
+    lang === "en"
+      ? `\\begin{document}\n  sample text is sample is awesome..\n\\end{document}`
+      : `\\begin{document}\n  サンプルテキストはサンプルは素晴らしい。。\n\\end{document}`;
   const [code, setCode] = useState(initialCode);
 
+  useEffect(() => {
+    setCode(initialCode);
+  }, [lang]);
+
   const handleClick = async () => {
-    setLoading(true);
+    setLoading(true, 15);
     const res = await lintCode(code, lang);
     setResult(res);
     setLoading(false);
