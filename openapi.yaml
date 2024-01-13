@@ -1,0 +1,81 @@
+openapi: "3.0.0"
+info:
+  version: "1.0.0"
+  title: "Lint API"
+
+servers:
+  - url: "http://127.0.0.1:5001/cyseclint/asia-northeast1/lint"
+    description: "Local server"
+  - url: "https://cylint.ryuse.dev/api/lint"
+    description: "Production server"
+
+paths:
+  /lint:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code
+                - lang
+              properties:
+                code:
+                  type: string
+                lang:
+                  type: string
+                  enum: ['ja', 'en']
+      responses:
+        '200':
+          description: Lint Result
+          content: 
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/LintResults'
+components:
+  schemas: 
+    LintResult:
+      type: object
+      required:
+        - loc
+        - message
+      properties:
+        loc:
+          type: object
+          required:
+            - start
+            - end
+          properties:
+            start:
+              type: object
+              required:
+                - column
+                - line
+              properties:
+                column:
+                  type: integer
+                line:
+                  type: integer
+            end:
+              type: object
+              required:
+                - column
+                - line
+              properties:
+                column:
+                  type: integer
+                line:
+                  type: integer
+        message:
+          type: string
+        ruleId:
+          type: string
+        url:
+          type: string
+          format: uri
+    LintResults:
+      type: array
+      items:
+        $ref: '#/components/schemas/LintResult'
