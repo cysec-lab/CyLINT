@@ -1,8 +1,11 @@
-import { useState, useContext, useRef, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { lintCode } from "../lib/fetch";
 import { LintContext } from "@/contexts/LintContext";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import AceEditor from "react-ace";
+
+import "ace-builds/src-noconflict/mode-latex";
+import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/ext-language_tools";
 
 const CodeEditor = ({
   code,
@@ -11,39 +14,26 @@ const CodeEditor = ({
   code: string;
   setCode: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      onKeyDown={() => textareaRef.current?.focus()}
-      onClick={() => textareaRef.current?.focus()}
-      className="relative flex bg-[#282a36] w-11/12 mr-auto ml-auto rounded-md"
-    >
-      <textarea
-        className="absolute inset-0 resize-none bg-transparent p-2 font-mono text-transparent caret-white outline-none"
-        ref={textareaRef}
+    <div className="mr-auto ml-auto">
+      <AceEditor
+        mode="latex"
+        theme="monokai"
+        placeholder="Write LaTeX code here"
+        onChange={(code) => setCode(code)}
+        showGutter={true}
+        highlightActiveLine={true}
         value={code}
-        onChange={(e) => setCode(e.target.value)}
+        width="90vw"
+        height="40vh"
+        setOptions={{
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+          showLineNumbers: true,
+          tabSize: 2,
+        }}
+        className="rounded"
       />
-      <SyntaxHighlighter
-        language="latex"
-        style={vscDarkPlus}
-        showLineNumbers
-        lineNumberStyle={{ minWidth: "40px" }}
-        wrapLines
-        lineProps={{ style: { whiteSpace: "pre-wrap" } }}
-        codeTagProps={{
-          contentEditable: true,
-          suppressContentEditableWarning: true,
-        }}
-        customStyle={{
-          flex: "1",
-          background: "transparent",
-        }}
-      >
-        {code}
-      </SyntaxHighlighter>
     </div>
   );
 };
