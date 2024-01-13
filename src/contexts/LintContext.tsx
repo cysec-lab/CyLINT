@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useState } from "react";
-import { LintResults } from "@/types/lint";
+import { LintResults } from "@/api/@types";
 
 type LintContext = {
   loading: boolean;
