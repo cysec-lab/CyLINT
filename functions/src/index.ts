@@ -3,8 +3,7 @@ import * as fs from "fs";
 import { createLinter, loadTextlintrc } from "textlint";
 import { TextlintMessage } from "@textlint/kernel";
 import { getUrl } from "./ruleId2Url";
-
-type ResT = (TextlintMessage & { url: string | undefined })[];
+import type { LintResult, LintResults } from "../../src/api/@types";
 
 export const lint = functions.https.onRequest(
   {
@@ -47,9 +46,15 @@ export const lint = functions.https.onRequest(
       response.type("application/json").status(200);
       response.send(JSON.stringify([]));
     } else {
-      const res: ResT = lintRes[0].messages.map((message: TextlintMessage) => {
-        const url = getUrl(message.ruleId);
-        return { ...message, url };
+      const res: LintResults = lintRes[0].messages.map((mes: TextlintMessage) => {
+        const url = getUrl(mes.ruleId);
+        const result:LintResult = {
+          message: mes.message,
+          loc: mes.loc,
+          ruleId: mes.ruleId,
+          url,
+        }
+        return result
       });
 
       response.type("application/json").status(200);

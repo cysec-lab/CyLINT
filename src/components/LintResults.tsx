@@ -1,6 +1,6 @@
-import { LintResult } from "@/types/lint";
 import { useContext } from "react";
 import { LintContext } from "@/contexts/LintContext";
+import type { LintResult } from "@/api/@types";
 
 export const LintResults = () => {
   const { result } = useContext(LintContext);
@@ -18,7 +18,12 @@ export const LintResults = () => {
     else {
       const ruleId = url.split("/").pop();
       return (
-        <a href={url} target="_blank" rel="noopener noreferrer" className="text-blue-700 cursor-pointer hover:underline">
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-700 cursor-pointer hover:underline"
+        >
           {ruleId}
         </a>
       );
