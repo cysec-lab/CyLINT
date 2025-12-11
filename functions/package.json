@@ -9,10 +9,13 @@
     "shell": "yarn build && firebase functions:shell",
     "start": "yarn shell"
   },
-  "main": "lib/index.js",
+  "engines": {
+    "node": "20"
+  },
+  "main": "lib/functions/src/index.js",
   "dependencies": {
-    "firebase-admin": "^10.0.2",
-    "firebase-functions": "^4.6.0",
+    "firebase-admin": "^13.6.0",
+    "firebase-functions": "^7.0.1",
     "textlint": "^13.3.2",
     "textlint-filter-rule-comments": "^1.2.2",
     "textlint-plugin-latex2e": "^1.2.1",

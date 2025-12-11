@@ -23,9 +23,7 @@
     ]
   },
   "functions": {
-    "source": "functions",
-    "runtime": "nodejs20",
-    "region": "asia-northeast1"
+    "source": "functions"
   },
   "emulators": {
     "auth": {

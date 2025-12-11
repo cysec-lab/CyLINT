@@ -6,7 +6,12 @@ import { UsersProvider } from "./contexts/UsersContext";
 import { LintProvider } from "./contexts/LintContext";
 import "@/lib/firebase";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  throw new Error("Root element not found");
+}
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <AuthProvider>
       <UsersProvider>

@@ -14,13 +14,13 @@ type LintContext = {
 const defaultContext: LintContext = {
   loading: false,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setLoading: (loading: boolean, loadingTime?: number) => {},
+  setLoading: () => {},
   lang: "ja",
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setLang: (lang) => {},
+  setLang: () => {},
   result: [] as LintResults,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setResult: (result) => {},
+  setResult: () => {},
 };
 
 export const LintContext = createContext<LintContext>(defaultContext);

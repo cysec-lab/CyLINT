@@ -9,7 +9,7 @@ export const lint = functions.https.onRequest(
   {
     region: "asia-northeast1",
     memory: "2GiB",
-    timeoutSeconds: 15,
+    timeoutSeconds: 30,
     maxInstances: 10,
   },
   async (request: functions.https.Request, response) => {
@@ -60,6 +60,8 @@ export const lint = functions.https.onRequest(
       response.type("application/json").status(200);
       response.send(JSON.stringify(res));
     }
-    fs.unlink(`uploads/${fileName}.tex`, () => {});
+    fs.unlink(`uploads/${fileName}.tex`, (err) => {
+      if (err) console.error(`Failed to delete file: ${err}`);
+    });
   }
 );
